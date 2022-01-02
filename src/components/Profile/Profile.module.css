@@ -1,0 +1,6 @@
+.wallpapper {
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+    border-radius: 8px;
+}
