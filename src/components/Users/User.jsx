@@ -1,17 +1,18 @@
 import React from "react";
 import UserImg from "../../assets/images/user-img.png";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const User = (props) => {
   return (
     <div className="shadow-lg rounded-2xl w-96 p-4 bg-white dark:bg-gray-800">
       <div className="flex flex-row items-start gap-4">
-        <NavLink className="w-28 h-28" to={'/profile/' + props.id}>
-        <img
-          src={props.avatarUrl !== undefined ? props.avatarUrl : UserImg  }
-          className="rounded-lg"
-          alt={props.name}
-        />
+        <NavLink className="w-28 h-28" to={"/profile/" + props.id}>
+          <img
+            src={props.avatarUrl !== undefined ? props.avatarUrl : UserImg}
+            className="rounded-lg"
+            alt={props.name}
+          />
         </NavLink>
         <div className="h-28 w-full flex flex-col justify-between">
           <div>
@@ -44,7 +45,21 @@ const User = (props) => {
             type="button"
             className="w-1/2 px-4 py-2 text-base border rounded-lg text-white bg-indigo-500 hover:bg-indigo-700 "
             onClick={() => {
-              props.unfollow(props.id);
+              axios
+                .delete(
+                  `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+                  {
+                    withCredentials: true,
+                    headers: {
+                      "api-key": "12ed9051-fdc4-4192-9e49-fa753178ffa9"
+                    }
+                  }
+                )
+                .then((response) => {
+                  if (response.data.resultCode == 0) {
+                    props.unfollow(props.id);
+                  }
+                });
             }}
           >
             Unfollow
@@ -54,7 +69,22 @@ const User = (props) => {
             type="button"
             className="w-1/2 px-4 py-2 text-base border rounded-lg text-white bg-indigo-500 hover:bg-indigo-700 "
             onClick={() => {
-              props.follow(props.id);
+              axios
+                .post(
+                  `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+                  {},
+                  {
+                    withCredentials: true,
+                    headers: {
+                      "api-key": "12ed9051-fdc4-4192-9e49-fa753178ffa9"
+                    }
+                  }
+                )
+                .then((response) => {
+                  if (response.data.resultCode == 0) {
+                    props.follow(props.id);
+                  }
+                });
             }}
           >
             Follow
