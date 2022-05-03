@@ -5,6 +5,7 @@ import {
   addMessageAction,
   updateMessageAction,
 } from "../../redux/reducers/dialogs-reducer";
+import { Redirect } from "react-router-dom";
 
 const Dialogs = (props) => {
   let newDialogElement = React.createRef();
@@ -26,12 +27,13 @@ const Dialogs = (props) => {
     props.onChangeMessage(text);
   };
 
+  if (!props.isAuth) return <Redirect to={"/login"}/>
+
   return (
     <div>
       <div>
         <ul>{dialogsMap}</ul>
       </div>
-
       <div>
         {messageMap}
         <div>

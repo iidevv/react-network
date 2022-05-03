@@ -17,6 +17,8 @@ const Users = (props) => {
                 location={m.location}
                 follow={props.follow}
                 unfollow={props.unfollow}
+                setToggleFollowingProgress={props.setToggleFollowingProgress}
+                followingInProgress={props.followingInProgress}
               />
             );
           })}

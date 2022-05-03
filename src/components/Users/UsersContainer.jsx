@@ -8,32 +8,27 @@ import {
   setTotalUsers,
   setCurrentPage,
   setToggleIsFetching,
+  setToggleFollowingProgress,
+  getUsers
 } from "./../../redux/reducers/users-reducer";
-import * as axios from "axios";
 import Preloader from "./../common/Preloader/index";
-import { usersAPI } from "./../../api/api";
+import { withAuthRedirect } from './../../hoc/withAuthRedirect';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setToggleIsFetching(true);
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((data) => {
-        this.props.setToggleIsFetching(false);
-        this.props.setUsers(data.items);
-        this.props.setTotalUsers(data.totalCount);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
 
   onPageChanged = (p) => {
-    this.props.setToggleIsFetching(true);
-    this.props.setCurrentPage(p);
-    usersAPI
-      .getUsers(p, this.props.pageSize)
-      .then((data) => {
-        this.props.setToggleIsFetching(false);
-        this.props.setUsers(data.items);
-      });
+    this.props.getUsers(p, this.props.pageSize);
+    // this.props.setToggleIsFetching(true);
+    // this.props.setCurrentPage(p);
+    // usersAPI
+    //   .getUsers(p, this.props.pageSize)
+    //   .then((data) => {
+    //     this.props.setToggleIsFetching(false);
+    //     this.props.setUsers(data.items);
+    //   });
   };
 
   render() {
@@ -57,6 +52,8 @@ class UsersContainer extends React.Component {
           onPageChanged={this.onPageChanged}
           currentPage={this.props.currentPage}
           pages={pages}
+          followingInProgress={this.props.followingInProgress}
+          // setToggleFollowingProgress={this.props.setToggleFollowingProgress}
         />
       </>
     );
@@ -70,8 +67,11 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
   };
 };
+
+let authRedirect = withAuthRedirect(UsersContainer);
 
 export default connect(mapStateToProps, {
   follow,
@@ -80,4 +80,6 @@ export default connect(mapStateToProps, {
   setTotalUsers,
   setCurrentPage,
   setToggleIsFetching,
-})(UsersContainer);
+  setToggleFollowingProgress,
+  getUsers
+})(authRedirect);
