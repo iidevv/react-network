@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
-
+import Logo from '../../assets/images/logo.svg';
 const Header = (props) => {
   return (
-    <header className="py-4 bg-white shadow-lg">
+    <header className="fixed left-0 top-0 w-full py-2 bg-white shadow-sm z-50">
       <div className="container flex justify-between">
-        <h1 className="text-2xl">R Network</h1>
+        <img src={Logo} alt="Logo" />
         {(props.isAuth && props.login) ? props.login : 
           <NavLink
           to="/login"

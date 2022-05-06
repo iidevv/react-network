@@ -4,12 +4,12 @@ import { NavLink } from "react-router-dom";
 
 const User = (props) => {
   return (
-    <div className="shadow-lg rounded-2xl w-96 p-4 bg-white dark:bg-gray-800">
+    <div className="shadow-sm rounded-sm w-full p-4 bg-white dark:bg-gray-800">
       <div className="flex flex-row items-start gap-4">
         <NavLink className="w-28 h-28" to={"/profile/" + props.id}>
           <img
             src={props.avatarUrl !== undefined ? props.avatarUrl : UserImg}
-            className="rounded-lg"
+            className="rounded-sm shadow-sm"
             alt={props.name}
           />
         </NavLink>
@@ -35,14 +35,14 @@ const User = (props) => {
       <div className="flex items-center justify-between gap-4 mt-6">
         <button
           type="button"
-          className="w-1/2 px-4 py-2 text-base border rounded-lg text-grey-500 bg-white hover:bg-gray-200 "
+          className="w-1/2 px-4 py-2 text-base border rounded-sm text-grey-500 bg-white hover:bg-gray-200 "
         >
           Chat
         </button>
         {props.followed ? (
           <button
             type="button"
-            className="disabled:opacity-75 w-1/2 px-4 py-2 text-base border rounded-lg text-white bg-indigo-500 hover:bg-indigo-700 "
+            className="disabled:opacity-75 w-1/2 px-4 py-2 text-base border rounded-sm text-white bg-indigo-500 hover:bg-indigo-700 "
             disabled={props.followingInProgress.some((id) => id === props.id)}
             onClick={() => {
               props.unfollow(props.id);
@@ -53,7 +53,7 @@ const User = (props) => {
         ) : (
           <button
             type="button"
-            className="w-1/2 px-4 py-2 text-base border rounded-lg text-white bg-indigo-500 hover:bg-indigo-700 disabled:opacity-50"
+            className="w-1/2 px-4 py-2 text-base border rounded-sm text-white bg-indigo-500 hover:bg-indigo-700 disabled:opacity-50"
             disabled={props.followingInProgress.some((id) => id === props.id)}
             onClick={() => {
               props.follow(props.id);

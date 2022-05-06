@@ -5,10 +5,7 @@ const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 let initialState = {
   posts: [
-    { message: "h2i1", likes: 2121 },
     { message: "first message", likes: 5 },
-    { message: "first message2", likes: 4 },
-    { message: "first message3", likes: 5 },
   ],
   newPostValue: "",
   profile: null,

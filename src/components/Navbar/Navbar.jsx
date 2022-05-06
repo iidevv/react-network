@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <aside className="bg-white w-full max-w-xs self-start p-4 rounded-xl shadow-lg">
+        <aside className="w-full self-start">
             <nav>
                 <ul>
                     <li><NavLink to="/profile/" activeClassName="text-blue-500">Profile</NavLink></li>
